@@ -1,0 +1,17 @@
+.form__profile-name {
+  margin: 0;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  padding: 0 0 13px;
+  margin-top: 54px;
+  margin-bottom: 30px;
+}
+
+.form__profile-name:focus {
+  outline-color: rgb(49, 49, 224);
+}
