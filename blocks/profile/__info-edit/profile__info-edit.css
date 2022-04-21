@@ -3,16 +3,16 @@
   width: 24px;
   height: 24px;
   margin-left: 18px;
-  background-image: url(../../../img/edit-btn.svg);
+  background-image: url(../../../images/edit-btn.svg);
   background-color: transparent;
   background-size: contain;
   border: none;
   transition: linear 0.6s;
+  cursor: pointer;
 }
 
 .profile__info-edit:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 500px) {

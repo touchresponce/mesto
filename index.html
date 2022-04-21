@@ -11,13 +11,13 @@
   <div class="page">
 
     <header class="header">
-      <img class="header__logo" src="./img/logo.svg" alt="Лого проекта Mesto">
+      <img class="header__logo" src="./images/logo.svg" alt="Лого проекта Mesto">
     </header>
 
     <main class="main">
 
       <section class="profile">
-        <img class="profile__avatar" src="./img/Avatar.svg" alt="Аватар">
+        <img class="profile__avatar" src="./images/Avatar.svg" alt="Аватар">
         <div class="profile__info">
           <div class="profile__container">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -26,49 +26,49 @@
           <p class="profile__job">Исследователь океана</p>
         </div>
         <button class="profile__info-add" type="button">
-          <img src="./img/addBtnPlus.svg" alt="Кнопка добавления">
+          <img src="./images/addBtnPlus.svg" alt="Кнопка добавления">
         </button>
       </section>
 
       <section class="elements">
 
         <article class="element">
-          <img class="element__image" src="./img/karachaevsk.png" alt="Карачаевск">
+          <img class="element__image" src="./images/karachaevsk.png" alt="Карачаевск">
           <div class="element__panel">
             <h2 class="element__panel-text">Карачаевск</h2>
             <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
-          <img class="element__image" src="./img/elbrus.png" alt="Гора Эльбрус">
+          <img class="element__image" src="./images/elbrus.png" alt="Гора Эльбрус">
           <div class="element__panel">
             <h2 class="element__panel-text">Гора Эльбрус</h2>
             <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
-          <img class="element__image" src="./img/dumbai.png" alt="Домбай">
+          <img class="element__image" src="./images/dumbai.png" alt="Домбай">
           <div class="element__panel">
             <h2 class="element__panel-text">Домбай</h2>
             <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
-          <img class="element__image" src="./img/elbrus.png" alt="Гора Эльбрус">
+          <img class="element__image" src="./images/elbrus.png" alt="Гора Эльбрус">
           <div class="element__panel">
             <h2 class="element__panel-text">Гора Эльбрус</h2>
             <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
-          <img class="element__image" src="./img/dumbai.png" alt="Домбай">
+          <img class="element__image" src="./images/dumbai.png" alt="Домбай">
           <div class="element__panel">
             <h2 class="element__panel-text">Домбай</h2>
             <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
-          <img class="element__image" src="./img/karachaevsk.png" alt="Карачаево-Черкесия">
+          <img class="element__image" src="./images/karachaevsk.png" alt="Карачаево-Черкесия">
           <div class="element__panel">
             <h2 class="element__panel-text">Карачаево-Черкесия</h2>
             <button class="element__like" type="button"></button>
@@ -86,18 +86,16 @@
 
   <div class="popup popup-edit">
     <div class="popup__container">
-      <button class="popup__close"></button>
-      <div class="popup__main">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form">
-          <input class="form__profile-name" type="text" name="name" placeholder="Имя" minlength="2" maxlength="40" required autocomplete="off">
-          <input class="form__profile-job" type="text" name="job" placeholder="Работа" minlength="2" maxlength="200" required autocomplete="off">
-          <button class="popup__submit" type="submit">Сохранить</button>
-        </form>
-      </div>
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name="profile-form">
+        <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Имя" minlength="2" maxlength="40" required autocomplete="off">
+        <input class="popup__input popup__input_type_job" type="text" name="job" placeholder="Работа" minlength="2" maxlength="200" required autocomplete="off">
+        <button class="popup__submit" type="submit">Сохранить</button>
+      </form>
     </div>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

@@ -5,16 +5,16 @@
   position: absolute;
   top: -44px;
   right: -44px;
-  background-image: url(../../../img/close-btn.svg);
+  background-image: url(../../../images/close-btn.svg);
   background-size: cover;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .popup__close:hover {
   opacity: 0.6;
   transition: linear 0.6s;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 580px) {

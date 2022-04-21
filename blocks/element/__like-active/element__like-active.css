@@ -1,8 +1,7 @@
 .element__like-active {
-  background-image: url(../../../img/like-active.svg);
+  background-image: url(../../../images/like-active.svg);
 }
 
 .element__like-active:hover {
   opacity: 1;
-  cursor: pointer;
 }

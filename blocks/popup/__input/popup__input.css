@@ -1,4 +1,4 @@
-.form__profile-name {
+.popup__input {
   margin: 0;
   border: none;
   width: 100%;
@@ -8,10 +8,8 @@
   font-weight: 400;
   line-height: 17px;
   padding: 0 0 13px;
-  margin-top: 54px;
-  margin-bottom: 30px;
 }
 
-.form__profile-name:focus {
+.popup__input:focus {
   outline-color: rgb(49, 49, 224);
 }
