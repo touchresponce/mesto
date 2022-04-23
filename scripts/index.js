@@ -3,7 +3,6 @@ const editBtn = document.querySelector('.profile__info-edit'); // кнопка �
 const nameInput = document.querySelector('.popup__input_type_name'); // форма имя редактирование
 const jobInput = document.querySelector('.popup__input_type_job'); // форма работа редактирование
 const closeBtn = document.querySelector('.popup__close'); // кнопка закрытия всех открытых модалок
-// для отправки\присваивания модалки редактирования
 const formElement = document.querySelector('.popup__form'); // форма редактирования
 const profileName = document.querySelector('.profile__name'); // блок имя
 const profileJob = document.querySelector('.profile__job'); // блок работа
@@ -35,3 +34,4 @@ function handleProfileFormSubmit(evt) {
   closeProfilePopup(); // закрытие после submit
 }
 formElement.addEventListener('submit', handleProfileFormSubmit);
+////////////////////////////////////////////////////////////////////////////////////////////////////
