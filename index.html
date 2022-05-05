@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
+  <title>Document</title>
 </head>
 <body>
   <div class="page">
@@ -30,51 +30,7 @@
         </button>
       </section>
 
-      <section class="elements">
-
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.png" alt="Карачаевск">
-          <div class="element__panel">
-            <h2 class="element__panel-text">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/elbrus.png" alt="Гора Эльбрус">
-          <div class="element__panel">
-            <h2 class="element__panel-text">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/dumbai.png" alt="Домбай">
-          <div class="element__panel">
-            <h2 class="element__panel-text">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/elbrus.png" alt="Гора Эльбрус">
-          <div class="element__panel">
-            <h2 class="element__panel-text">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/dumbai.png" alt="Домбай">
-          <div class="element__panel">
-            <h2 class="element__panel-text">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.png" alt="Карачаево-Черкесия">
-          <div class="element__panel">
-            <h2 class="element__panel-text">Карачаево-Черкесия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-      </section>
+      <section class="elements"></section>
 
     </main>
 
@@ -86,15 +42,46 @@
 
   <div class="popup popup-edit">
     <div class="popup__container">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="form popup__form" name="profile-form">
-        <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Имя" minlength="2" maxlength="40" required autocomplete="off">
-        <input class="popup__input popup__input_type_job" type="text" name="job" placeholder="Работа" minlength="2" maxlength="200" required autocomplete="off">
+      <form class="form edit-form" name="profile-form">
+        <input class="popup__input popup__input_profile_name" type="text" name="name" placeholder="Имя" minlength="2" maxlength="40" required autocomplete="off">
+        <input class="popup__input popup__input_profile_job" type="text" name="job" placeholder="Работа" minlength="2" maxlength="200" required autocomplete="off">
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
+
+  <div class="popup popup-add">
+    <div class="popup__container">
+      <button class="popup__close"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="form add-form" name="place-form">
+        <input class="popup__input popup__input_place_name" type="text" name="place" placeholder="Название" minlength="2" maxlength="40" required autocomplete="off">
+        <input class="popup__input popup__input_place_url" type="text" name="url" placeholder="Ссылка на картинку" minlength="2" maxlength="200" required autocomplete="off">
+        <button class="popup__submit" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup-image">
+    <figure class="figure">
+      <img class="popup__image" src="#" alt="">
+      <figcaption class="popup__figcaption"></figcaption>
+      <button class="popup__close" type="button"></button>
+    </figure>
+  </div>
+
+  <template id="element-template">
+    <article class="element">
+      <img class="element__image" src="#" alt="">
+      <button class="element__delete" type="button"></button>
+      <div class="element__panel">
+        <h2 class="element__panel-text"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </article>
+  </template>
 
   <script src="./scripts/index.js"></script>
 </body>

@@ -18,6 +18,7 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__delete/element__delete.css);
 @import url(../blocks/element/__panel/element__panel.css);
 @import url(../blocks/element/__panel-text/element__panel-text.css);
 @import url(../blocks/element/__like/element__like.css);
@@ -29,13 +30,21 @@
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__body/popup__body.css);
 @import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__main/popup__main.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__submit/popup__submit.css);
 @import url(../blocks/form/form.css);
-@import url(../blocks/popup/__form/popup__form.css);
-/*форма редактирования*/
 @import url(../blocks/popup/__input/popup__input.css);
-@import url(../blocks/popup/__input/_type/popup__input_type_name.css);
-@import url(../blocks/popup/__input/_type/popup__input_type_job.css);
+/*форма редактирования*/
+@import url(../blocks/popup/__input/_profile/popup__input_profile_name.css);
+@import url(../blocks/popup/__input/_profile/popup__input_profile_job.css);
+/*форма добавления*/
+@import url(../blocks/popup/__input/_place/popup__input_place_name.css);
+@import url(../blocks/popup/__input/_place/popup__input_place_url.css);
+/* popup image */
+@import url(../blocks/popup/__image/popup__image.css);
+@import url(../blocks/popup-image/popup-image.css);
+@import url(../blocks/figure/figure.css);
+@import url(../blocks/popup/__figcaption/popup__figcaption.css);
