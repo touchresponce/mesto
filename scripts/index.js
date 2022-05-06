@@ -30,11 +30,6 @@ function deleteCard(evt) {
   evt.target.closest('.element').remove();
 }
 
-// функция отрисовки нового элемента <=========================================================================================
-function renderNewCard(card, container) {
-  container.prepend(card);
-}
-
 // «отправка» формы редактирования
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -48,18 +43,23 @@ function handleProfileFormSubmit(evt) {
 }
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 
+// функция отрисовки нового элемента <=========================================================================================
+function renderCard(card, container) {
+  container.prepend(card);
+}
+
 // «отправка» формы места
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
 
-  // создание элемента
+  // создание элемента <=========================================================================================
   const newCard = createCard(
     document.querySelector('.popup__input_place_name').value,
     document.querySelector('.popup__input_place_url').value,
   );
 
   // отрисовка элемента <=========================================================================================
-  renderNewCard(newCard, elements);
+  renderCard(newCard, elements);
 
   evt.target.reset();
   togglePopup(popupAdd);
@@ -94,6 +94,18 @@ function createCard(name, link) {
   return element;
 }
 
+// основной массив  <=========================================================================================
+// initialCards.forEach(({ name, link }) => {
+//   const card = createCard(name, link);
+//   renderCard(card, elements);
+// });
+
+//<================================================================================ костыль reverse
+initialCards.reverse().forEach(({ name, link }) => {
+  const card = createCard(name, link);
+  renderCard(card, elements);
+});
+
 // edit
 document.querySelector('.profile__info-edit').addEventListener('click', () => {
   togglePopup(popupEdit);
@@ -112,36 +124,3 @@ document.addEventListener('click', (evt) => {
     togglePopup(evt.target.closest('.popup_opened'));
   }
 });
-
-initialCards.forEach(({ name, link }) => {
-  const card = createCard(name, link);
-  renderNewCard(card, elements);
-});
-
-// //
-// initialCards.forEach(({ name, link }) => {
-//   // const element = elementTemplate.querySelector('.element').cloneNode(true);
-//   // element.querySelector('.element__image').src = link;
-//   // element.querySelector('.element__image').alt = name;
-//   // element.querySelector('.element__panel-text').textContent = name;
-
-//   // like
-//   element.querySelector('.element__like').addEventListener('click', (evt) => {
-//     toggleLike(evt);
-//   });
-
-//   // удаление
-//   element.querySelector('.element__delete').addEventListener('click', (evt) => {
-//     deleteCard(evt);
-//   });
-
-//   // открытие модалки с картинкой
-//   element.querySelector('.element__image').addEventListener('click', (evt) => {
-//     togglePopup(popupImage);
-//     image.src = evt.target.getAttribute('src');
-//     image.alt = evt.target.getAttribute('alt');
-//     caption.textContent = evt.target.getAttribute('alt');
-//   });
-
-//   elements.append(element);
-// });
