@@ -43,7 +43,7 @@ function handleProfileFormSubmit(evt) {
 }
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 
-// функция отрисовки нового элемента <=========================================================================================
+// функция отрисовки нового элемента
 function renderCard(card, container) {
   container.prepend(card);
 }
@@ -52,13 +52,13 @@ function renderCard(card, container) {
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
 
-  // создание элемента <=========================================================================================
+  // создание элемента
   const newCard = createCard(
     document.querySelector('.popup__input_place_name').value,
     document.querySelector('.popup__input_place_url').value,
   );
 
-  // отрисовка элемента <=========================================================================================
+  // отрисовка элемента
   renderCard(newCard, elements);
 
   evt.target.reset();
@@ -66,7 +66,7 @@ function handlePlaceFormSubmit(evt) {
 }
 formAdd.addEventListener('submit', handlePlaceFormSubmit);
 
-// создание элемента <=========================================================================================
+// создание элемента
 function createCard(name, link) {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__image').src = link;
@@ -94,13 +94,7 @@ function createCard(name, link) {
   return element;
 }
 
-// основной массив  <=========================================================================================
-// initialCards.forEach(({ name, link }) => {
-//   const card = createCard(name, link);
-//   renderCard(card, elements);
-// });
-
-//<================================================================================ костыль reverse
+//
 initialCards.reverse().forEach(({ name, link }) => {
   const card = createCard(name, link);
   renderCard(card, elements);
