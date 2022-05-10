@@ -120,18 +120,18 @@ document.addEventListener('click', (evt) => {
 
 // закрытие на оверлей
 document.addEventListener('mousedown', (evt) => {
-  if (evt.target.classList.contains('popup')) {
-    evt.target.classList.remove('popup_opened');
+  if (evt.target.classList.contains('popup_opened')) {
+    togglePopup(evt.target);
   }
 });
 
-// закрытие модалок на esc !!!!!!!!!!!! вешать при открытии, удалять при закрытии
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    popup.forEach((popup) => {
-      if (popup.classList.contains('popup_opened')) {
-        popup.classList.remove('popup_opened');
-      }
-    });
-  }
-});
+// // закрытие модалок на esc !!!!!!!!!!!! вешать при открытии, удалять при закрытии
+// document.addEventListener('keydown', (evt) => {
+//   if (evt.key === 'Escape') {
+//     popup.forEach((popup) => {
+//       if (popup.classList.contains('popup_opened')) {
+//         popup.classList.remove('popup_opened');
+//       }
+//     });
+//   }
+// });
