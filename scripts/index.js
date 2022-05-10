@@ -1,10 +1,10 @@
-import initialCards from './cards.js'; // массив элементов
+import initialCards from '../utils/initialCards.js';
 const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
 const nameInput = document.querySelector('.popup__input_profile_name'); // форма имя редактирование
 const jobInput = document.querySelector('.popup__input_profile_job'); // форма работа редактирование
 const popupAdd = document.querySelector('.popup-add'); // модалка добавления
 const popupImage = document.querySelector('.popup-image'); // модалка с картинкой
-// const profile = document.querySelector('.profile'); // секция с акком
+//const profile = document.querySelector('.profile'); // секция с акком
 const elements = document.querySelector('.elements'); // секция с элементами
 const formEdit = document.querySelector('.edit-form'); // форма редактирования
 const formAdd = document.querySelector('.add-form'); // форма добавления
@@ -12,8 +12,7 @@ const profileName = document.querySelector('.profile__name'); // блок имя
 const profileJob = document.querySelector('.profile__job'); // блок работа
 const image = document.querySelector('.popup__image'); // модалка с картинкой
 const caption = document.querySelector('.popup__figcaption'); // подпись к картинке
-// доступ к template
-const elementTemplate = document.querySelector('#element-template').content;
+const elementTemplate = document.querySelector('#element-template').content; // доступ к template
 
 // открытие\закрытие
 function togglePopup(popup) {
@@ -100,14 +99,14 @@ initialCards.reverse().forEach(({ name, link }) => {
   renderCard(card, elements);
 });
 
-// edit
+// edit открытие\закрытие
 document.querySelector('.profile__info-edit').addEventListener('click', () => {
   togglePopup(popupEdit);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
 
-// add
+// add открытие\закрытие
 document.querySelector('.profile__info-add').addEventListener('click', () => {
   togglePopup(popupAdd);
 });
@@ -116,5 +115,23 @@ document.querySelector('.profile__info-add').addEventListener('click', () => {
 document.addEventListener('click', (evt) => {
   if (evt.target.className === 'popup__close') {
     togglePopup(evt.target.closest('.popup_opened'));
+  }
+});
+
+// закрытие на оверлей
+document.addEventListener('mousedown', (evt) => {
+  if (evt.target.classList.contains('popup')) {
+    evt.target.classList.remove('popup_opened');
+  }
+});
+
+// закрытие модалок на esc !!!!!!!!!!!! вешать при открытии, удалять при закрытии
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    popup.forEach((popup) => {
+      if (popup.classList.contains('popup_opened')) {
+        popup.classList.remove('popup_opened');
+      }
+    });
   }
 });
