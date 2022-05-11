@@ -10,7 +10,7 @@ const formEdit = document.querySelector('.edit-form'); // форма редак�
 const formAdd = document.querySelector('.add-form'); // форма добавления
 const profileName = document.querySelector('.profile__name'); // блок имя
 const profileJob = document.querySelector('.profile__job'); // блок работа
-const image = document.querySelector('.popup__image'); // модалка с картинкой
+const image = document.querySelector('.popup__image'); // картинка
 const caption = document.querySelector('.popup__figcaption'); // подпись к картинке
 const elementTemplate = document.querySelector('#element-template').content; // доступ к template
 
@@ -87,6 +87,7 @@ function createCard(name, link) {
     togglePopup(popupImage);
     image.src = evt.target.getAttribute('src');
     image.alt = evt.target.getAttribute('alt');
+
     caption.textContent = evt.target.getAttribute('alt');
   });
 
