@@ -2,6 +2,8 @@ import initialCards from '../utils/initialCards.js';
 const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
 const nameInput = document.querySelector('.popup__input_profile_name'); // форма имя редактирование
 const jobInput = document.querySelector('.popup__input_profile_job'); // форма работа редактирование
+// добавить форма название место  убрать из кода прямое обращение
+// добавить форма ссылка место    убрать из кода прямое обращение
 const popupAdd = document.querySelector('.popup-add'); // модалка добавления
 const popupImage = document.querySelector('.popup-image'); // модалка с картинкой
 //const profile = document.querySelector('.profile'); // секция с акком
@@ -13,6 +15,7 @@ const profileJob = document.querySelector('.profile__job'); // блок рабо
 const image = document.querySelector('.popup__image'); // картинка
 const caption = document.querySelector('.popup__figcaption'); // подпись к картинке
 const elementTemplate = document.querySelector('#element-template').content; // доступ к template
+// const popups = document.querySelectorAll('.popup'); // все модалки для esc
 
 // открытие\закрытие
 function togglePopup(popup) {
@@ -126,6 +129,8 @@ document.addEventListener('mousedown', (evt) => {
   }
 });
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++ 6 спринт ++++++++++++++++++++++++++++++++++++++++++
+
 // // закрытие модалок на esc !!!!!!!!!!!! вешать при открытии, удалять при закрытии
 // document.addEventListener('keydown', (evt) => {
 //   if (evt.key === 'Escape') {
@@ -136,3 +141,7 @@ document.addEventListener('mousedown', (evt) => {
 //     });
 //   }
 // });
+
+// починить ебаную кнопку (reset Формы \ disabled setAttribute)
+// config. ??
+// вебинар 20.05
