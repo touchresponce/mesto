@@ -2,8 +2,6 @@ import initialCards from '../utils/initialCards.js';
 const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
 const nameInput = document.querySelector('.popup__input_profile_name'); // форма имя редактирование
 const jobInput = document.querySelector('.popup__input_profile_job'); // форма работа редактирование
-// добавить форма название место  убрать из кода прямое обращение
-// добавить форма ссылка место    убрать из кода прямое обращение
 const popupAdd = document.querySelector('.popup-add'); // модалка добавления
 const popupImage = document.querySelector('.popup-image'); // модалка с картинкой
 //const profile = document.querySelector('.profile'); // секция с акком
@@ -15,12 +13,7 @@ const profileJob = document.querySelector('.profile__job'); // блок рабо
 const image = document.querySelector('.popup__image'); // картинка
 const caption = document.querySelector('.popup__figcaption'); // подпись к картинке
 const elementTemplate = document.querySelector('#element-template').content; // доступ к template
-// const popups = document.querySelectorAll('.popup'); // все модалки для esc
-
-// открытие\закрытие
-function togglePopup(popup) {
-  popup.classList.toggle('popup_opened');
-}
+const popups = document.querySelectorAll('.popup'); // все модалки для esc
 
 // like
 function toggleLike(evt) {
@@ -30,6 +23,25 @@ function toggleLike(evt) {
 // удаление элемента
 function deleteCard(evt) {
   evt.target.closest('.element').remove();
+}
+
+// функция закрытия на Escape // <===================
+function closePopupOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    popups.forEach((popup) => {
+      if (popup.classList.contains('popup_opened')) {
+        popup.classList.remove('popup_opened');
+      }
+    });
+    console.log('click escape');
+    document.removeEventListener('keydown', closePopupOnEsc); // <===================
+  }
+}
+
+// открытие\закрытие
+function togglePopup(popup) {
+  popup.classList.toggle('popup_opened');
+  document.addEventListener('keydown', closePopupOnEsc); // <===================
 }
 
 // «отправка» формы редактирования
@@ -88,6 +100,7 @@ function createCard(name, link) {
   // открытие модалки с картинкой
   element.querySelector('.element__image').addEventListener('click', (evt) => {
     togglePopup(popupImage);
+
     image.src = evt.target.getAttribute('src');
     image.alt = evt.target.getAttribute('alt');
 
@@ -113,12 +126,14 @@ document.querySelector('.profile__info-edit').addEventListener('click', () => {
 // add открытие\закрытие
 document.querySelector('.profile__info-add').addEventListener('click', () => {
   togglePopup(popupAdd);
+  formAdd.reset(); // <===================
 });
 
 // закрытие на кнопки
 document.addEventListener('click', (evt) => {
   if (evt.target.className === 'popup__close') {
     togglePopup(evt.target.closest('.popup_opened'));
+    document.removeEventListener('keydown', closePopupOnEsc); // <===================
   }
 });
 
@@ -126,22 +141,12 @@ document.addEventListener('click', (evt) => {
 document.addEventListener('mousedown', (evt) => {
   if (evt.target.classList.contains('popup_opened')) {
     togglePopup(evt.target);
+    document.removeEventListener('keydown', closePopupOnEsc); // <===================
   }
 });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++ 6 спринт ++++++++++++++++++++++++++++++++++++++++++
 
-// // закрытие модалок на esc !!!!!!!!!!!! вешать при открытии, удалять при закрытии
-// document.addEventListener('keydown', (evt) => {
-//   if (evt.key === 'Escape') {
-//     popup.forEach((popup) => {
-//       if (popup.classList.contains('popup_opened')) {
-//         popup.classList.remove('popup_opened');
-//       }
-//     });
-//   }
-// });
-
-// починить ебаную кнопку (reset Формы \ disabled setAttribute)
 // config. ??
 // вебинар 20.05
+// остаются ошибки в модалке, если закрыть не сабмитом
