@@ -33,7 +33,6 @@ function closePopupOnEsc(evt) {
         popup.classList.remove('popup_opened');
       }
     });
-    console.log('click escape');
     document.removeEventListener('keydown', closePopupOnEsc); // <===================
   }
 }
