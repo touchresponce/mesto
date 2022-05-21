@@ -1,7 +1,9 @@
 import initialCards from '../utils/initialCards.js';
 const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
-const nameInput = document.querySelector('.popup__input_profile_name'); // форма имя редактирование
-const jobInput = document.querySelector('.popup__input_profile_job'); // форма работа редактирование
+const nameInput = document.querySelector('.popup__input_profile_name'); // инпут имя редактирование
+const jobInput = document.querySelector('.popup__input_profile_job'); // инпут работа редактирование
+const placeInput = document.querySelector('.popup__input_place_name'); // инпут место добавление
+const linkInput = document.querySelector('.popup__input_place_url'); // инпут ссылка добавление
 const popupAdd = document.querySelector('.popup-add'); // модалка добавления
 const popupImage = document.querySelector('.popup-image'); // модалка с картинкой
 //const profile = document.querySelector('.profile'); // секция с акком
@@ -13,7 +15,6 @@ const profileJob = document.querySelector('.profile__job'); // блок рабо
 const image = document.querySelector('.popup__image'); // картинка
 const caption = document.querySelector('.popup__figcaption'); // подпись к картинке
 const elementTemplate = document.querySelector('#element-template').content; // доступ к template
-// const popups = document.querySelectorAll('.popup'); // все модалки для esc
 const spans = document.querySelectorAll('.popup__input-error'); // span'ы с ошибками
 const inputs = document.querySelectorAll('.popup__input'); // инпуты форм
 
@@ -86,10 +87,7 @@ function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
 
   // создание элемента
-  const newCard = createCard(
-    document.querySelector('.popup__input_place_name').value,
-    document.querySelector('.popup__input_place_url').value,
-  );
+  const newCard = createCard(placeInput.value, linkInput.value);
 
   // отрисовка элемента
   renderCard(newCard, elements);
