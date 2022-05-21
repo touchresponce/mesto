@@ -25,22 +25,41 @@ function deleteCard(evt) {
   evt.target.closest('.element').remove();
 }
 
-// функция закрытия на Escape // <===================
+function deleteErrorSpan() {
+  const spans = document.querySelectorAll('.popup__input-error');
+  const inputs = document.querySelectorAll('.popup__input');
+
+  spans.forEach((span) => {
+    if (span.classList.contains('popup__input-error_active')) {
+      span.textContent = '';
+      span.classList.remove('popup__input-error_active');
+    }
+  });
+
+  inputs.forEach((input) => {
+    if (input.classList.contains('popup__input_type_error')) {
+      input.classList.remove('popup__input_type_error');
+    }
+  });
+}
+
+// функция закрытия на Escape
 function closePopupOnEsc(evt) {
   if (evt.key === 'Escape') {
     popups.forEach((popup) => {
       if (popup.classList.contains('popup_opened')) {
         popup.classList.remove('popup_opened');
+        deleteErrorSpan();
       }
     });
-    document.removeEventListener('keydown', closePopupOnEsc); // <===================
+    document.removeEventListener('keydown', closePopupOnEsc);
   }
 }
 
 // открытие\закрытие
 function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
-  document.addEventListener('keydown', closePopupOnEsc); // <===================
+  document.addEventListener('keydown', closePopupOnEsc);
 }
 
 // «отправка» формы редактирования
@@ -115,24 +134,25 @@ initialCards.reverse().forEach(({ name, link }) => {
   renderCard(card, elements);
 });
 
-// edit открытие\закрытие
+// edit открытие
 document.querySelector('.profile__info-edit').addEventListener('click', () => {
   togglePopup(popupEdit);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
 
-// add открытие\закрытие
+// add открытие
 document.querySelector('.profile__info-add').addEventListener('click', () => {
   togglePopup(popupAdd);
-  formAdd.reset(); // <===================
+  formAdd.reset();
 });
 
 // закрытие на кнопки
 document.addEventListener('click', (evt) => {
   if (evt.target.className === 'popup__close') {
     togglePopup(evt.target.closest('.popup_opened'));
-    document.removeEventListener('keydown', closePopupOnEsc); // <===================
+    document.removeEventListener('keydown', closePopupOnEsc);
+    deleteErrorSpan();
   }
 });
 
@@ -140,12 +160,7 @@ document.addEventListener('click', (evt) => {
 document.addEventListener('mousedown', (evt) => {
   if (evt.target.classList.contains('popup_opened')) {
     togglePopup(evt.target);
-    document.removeEventListener('keydown', closePopupOnEsc); // <===================
+    document.removeEventListener('keydown', closePopupOnEsc);
+    deleteErrorSpan();
   }
 });
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++ 6 спринт ++++++++++++++++++++++++++++++++++++++++++
-
-// config. ??
-// вебинар 20.05
-// остаются ошибки в модалке, если закрыть не сабмитом

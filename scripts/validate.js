@@ -37,6 +37,7 @@ const setEventListeners = (
   inputErrorClass,
   errorClass,
 ) => {
+  // получаем все инпуты
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
 
@@ -76,8 +77,7 @@ const toggleButtonState = (formElement, inputList, submitButtonSelector, inactiv
   } else {
     enableSubmit(buttonElement, inactiveButtonClass);
   }
-
-  // <===================
+  // отключить кнопку после сабмита
   formElement.addEventListener('submit', () => {
     disabledSubmit(buttonElement, inactiveButtonClass);
   });
