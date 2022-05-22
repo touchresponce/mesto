@@ -17,6 +17,8 @@ const caption = document.querySelector('.popup__figcaption'); // подпись 
 const elementTemplate = document.querySelector('#element-template').content; // доступ к template
 const spans = document.querySelectorAll('.popup__input-error'); // span'ы с ошибками
 const inputs = document.querySelectorAll('.popup__input'); // инпуты форм
+const closeBtns = document.querySelectorAll('.popup__close'); // кнопки закрытия модалки
+const popups = document.querySelectorAll('.popup'); // модалки
 
 // like
 function toggleLike(evt) {
@@ -43,13 +45,6 @@ function deleteErrorSpan() {
   });
 }
 
-// функция закрытия на Escape
-function closePopupOnEsc(evt) {
-  if (evt.key === 'Escape') {
-    evt.currentTarget.querySelector('.popup_opened').classList.remove('popup_opened');
-  }
-}
-
 // функция открытия
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -62,6 +57,13 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   // убираем слушатель Escape
   document.removeEventListener('keydown', closePopupOnEsc);
+}
+
+// функция закрытия на Escape
+function closePopupOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(evt.currentTarget.querySelector('.popup_opened'));
+  }
 }
 
 // «отправка» формы редактирования
@@ -149,15 +151,31 @@ document.querySelector('.profile__info-add').addEventListener('click', () => {
 });
 
 // закрытие на кнопки
-document.addEventListener('click', (evt) => {
-  if (evt.target.className === 'popup__close') {
+// document.addEventListener('click', (evt) => {
+//   if (evt.target.className === 'popup__close') {
+//     closePopup(evt.target.closest('.popup_opened'));
+//   }
+// });
+
+// закрытие на оверлей
+// document.addEventListener('mousedown', (evt) => {
+//   if (evt.target.classList.contains('popup_opened')) {
+//     closePopup(evt.target);
+//   }
+// });
+
+// закрытие на кнопки
+closeBtns.forEach((btn) => {
+  btn.addEventListener('click', (evt) => {
     closePopup(evt.target.closest('.popup_opened'));
-  }
+  });
 });
 
 // закрытие на оверлей
-document.addEventListener('mousedown', (evt) => {
-  if (evt.target.classList.contains('popup_opened')) {
-    closePopup(evt.target);
-  }
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(evt.target);
+    }
+  });
 });
