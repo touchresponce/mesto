@@ -13,8 +13,6 @@ const profileName = document.querySelector('.profile__name'); // блок имя
 const profileJob = document.querySelector('.profile__job'); // блок работа
 const image = document.querySelector('.popup__image'); // картинка
 const caption = document.querySelector('.popup__figcaption'); // подпись к картинке
-const spans = document.querySelectorAll('.popup__input-error'); // span'ы с ошибками
-const inputs = document.querySelectorAll('.popup__input'); // инпуты форм
 const closeBtns = document.querySelectorAll('.popup__close'); // кнопки закрытия модалки
 const popups = document.querySelectorAll('.popup'); // модалки
 const config = {
@@ -24,20 +22,6 @@ const config = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active',
 };
-
-function deleteErrorSpan() {
-  spans.forEach((span) => {
-    if (span.classList.contains('popup__input-error_active')) {
-      span.textContent = '';
-      span.classList.remove('popup__input-error_active');
-    }
-  });
-  inputs.forEach((input) => {
-    if (input.classList.contains('popup__input_type_error')) {
-      input.classList.remove('popup__input_type_error');
-    }
-  });
-}
 
 // функция открытия
 function openPopup(popup) {
@@ -70,10 +54,10 @@ function handleProfileFormSubmit(evt) {
 }
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 
-// функция отрисовки нового элемента
-function renderCard(card, container) {
-  container.prepend(card);
-}
+// // функция отрисовки нового элемента
+// function renderCard(card, container) {
+//   container.prepend(card);
+// }
 
 // «отправка» формы места
 function handlePlaceFormSubmit(evt) {
@@ -84,13 +68,8 @@ function handlePlaceFormSubmit(evt) {
     link: document.querySelector('.popup__input_place_url').value,
   };
 
-  const card = new Card(newElem, '#element-template');
+  const card = new Card(newElem, '#element-template', handleCardClick);
   renderCard(card.createCard(), elements);
-
-  //
-  document.querySelector('.element__image').addEventListener('click', (evt) => {
-    openImagePopup(evt);
-  });
 
   evt.target.reset();
   closePopup(popupAdd);
@@ -99,25 +78,32 @@ formAdd.addEventListener('submit', handlePlaceFormSubmit);
 
 //
 initialCards.reverse().forEach(({ name, link }) => {
-  const card = new Card({ name, link }, '#element-template');
-  renderCard(card.createCard(), elements);
-  document.querySelector('.element__image').addEventListener('click', (evt) => {
-    openImagePopup(evt);
-  });
+  const card = createCard({ name, link });
+  elements.prepend(card);
 });
 
-// открытие модалки с картинкой
-function openImagePopup(evt) {
+//////////////////////////////////////////
+// функция создания элемента
+function createCard(item) {
+  const card = new Card(item, '#element-template', handleCardClick);
+  const cardElement = card.createCard();
+  return cardElement;
+}
+
+/////////////////////////////////////
+function handleCardClick(name, link) {
+  image.src = link;
+  image.alt = name;
+  caption.textContent = name;
   openPopup(popupImage);
-  image.src = evt.target.getAttribute('src');
-  image.alt = evt.target.getAttribute('alt');
-  caption.textContent = evt.target.getAttribute('alt');
 }
 
 // edit открытие
 document.querySelector('.profile__info-edit').addEventListener('click', () => {
   openPopup(popupEdit);
-  deleteErrorSpan();
+
+  validatorEdit.resetValidation();
+
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
@@ -125,8 +111,9 @@ document.querySelector('.profile__info-edit').addEventListener('click', () => {
 // add открытие
 document.querySelector('.profile__info-add').addEventListener('click', () => {
   openPopup(popupAdd);
+
   formAdd.reset();
-  deleteErrorSpan();
+  validatorAdd.resetValidation();
 });
 
 // закрытие на кнопки
@@ -152,3 +139,30 @@ validatorEdit.enableValidation();
 // валидация add
 const validatorAdd = new FormValidator(config, formAdd);
 validatorAdd.enableValidation();
+
+// //
+// initialCards.reverse().forEach(({ name, link }) => {
+//   const card = new Card({ name, link }, '#element-template', handleCardClick);
+//   renderCard(card.createCard(), elements);
+// });
+
+/////////////////////////////////////////////////////////
+// initialCards.reverse().forEach((card) => {
+//   createCard(card);
+//   elements.prepend(card);
+// });
+
+// function createCard(item) {
+//   const cardNew = new Card({
+//     data: item,
+//     handlerCardClick: () => {
+//       popupImage.open(item.link, item.name)
+//     }, '#element-template')
+
+////////////////////////////////////////
+// // функция создания элемента
+// function createCard(item) {
+//   const card = new Card({ data: item, handleCardClick }, '#element-template');
+//   const cardElement = card.createCard();
+//   return cardElement;
+// }
