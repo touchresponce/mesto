@@ -15,6 +15,8 @@ const image = document.querySelector('.popup__image'); // картинка
 const caption = document.querySelector('.popup__figcaption'); // подпись к картинке
 const closeBtns = document.querySelectorAll('.popup__close'); // кнопки закрытия модалки
 const popups = document.querySelectorAll('.popup'); // модалки
+const inputPlaceName = document.querySelector('.popup__input_place_name');
+const inputPlaceLink = document.querySelector('.popup__input_place_url');
 const config = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
@@ -42,6 +44,21 @@ function closePopupOnEsc(evt) {
   }
 }
 
+// функция создания элемента
+function createCard(item) {
+  const card = new Card(item, '#element-template', handleCardClick);
+  const cardElement = card.createCard();
+  return cardElement;
+}
+
+// открытие модалки с картинкой
+function handleCardClick(name, link) {
+  image.src = link;
+  image.alt = name;
+  caption.textContent = name;
+  openPopup(popupImage);
+}
+
 // «отправка» формы редактирования
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -54,22 +71,17 @@ function handleProfileFormSubmit(evt) {
 }
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 
-// // функция отрисовки нового элемента
-// function renderCard(card, container) {
-//   container.prepend(card);
-// }
-
 // «отправка» формы места
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
 
   const newElem = {
-    name: document.querySelector('.popup__input_place_name').value,
-    link: document.querySelector('.popup__input_place_url').value,
+    name: inputPlaceName.value,
+    link: inputPlaceLink.value,
   };
 
-  const card = new Card(newElem, '#element-template', handleCardClick);
-  renderCard(card.createCard(), elements);
+  const card = createCard(newElem);
+  elements.prepend(card);
 
   evt.target.reset();
   closePopup(popupAdd);
@@ -77,26 +89,10 @@ function handlePlaceFormSubmit(evt) {
 formAdd.addEventListener('submit', handlePlaceFormSubmit);
 
 //
-initialCards.reverse().forEach(({ name, link }) => {
+initialCards.forEach(({ name, link }) => {
   const card = createCard({ name, link });
-  elements.prepend(card);
+  elements.append(card);
 });
-
-//////////////////////////////////////////
-// функция создания элемента
-function createCard(item) {
-  const card = new Card(item, '#element-template', handleCardClick);
-  const cardElement = card.createCard();
-  return cardElement;
-}
-
-/////////////////////////////////////
-function handleCardClick(name, link) {
-  image.src = link;
-  image.alt = name;
-  caption.textContent = name;
-  openPopup(popupImage);
-}
 
 // edit открытие
 document.querySelector('.profile__info-edit').addEventListener('click', () => {
@@ -139,30 +135,3 @@ validatorEdit.enableValidation();
 // валидация add
 const validatorAdd = new FormValidator(config, formAdd);
 validatorAdd.enableValidation();
-
-// //
-// initialCards.reverse().forEach(({ name, link }) => {
-//   const card = new Card({ name, link }, '#element-template', handleCardClick);
-//   renderCard(card.createCard(), elements);
-// });
-
-/////////////////////////////////////////////////////////
-// initialCards.reverse().forEach((card) => {
-//   createCard(card);
-//   elements.prepend(card);
-// });
-
-// function createCard(item) {
-//   const cardNew = new Card({
-//     data: item,
-//     handlerCardClick: () => {
-//       popupImage.open(item.link, item.name)
-//     }, '#element-template')
-
-////////////////////////////////////////
-// // функция создания элемента
-// function createCard(item) {
-//   const card = new Card({ data: item, handleCardClick }, '#element-template');
-//   const cardElement = card.createCard();
-//   return cardElement;
-// }
