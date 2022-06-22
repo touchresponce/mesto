@@ -1,11 +1,11 @@
-import './pages/index.css';
-import initialCards from './utils/initialCards.js';
-import Card from './components/Card.js';
-import FormValidator from './components/FormValidator.js';
-import UserInfo from './components/UserInfo.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
+import './index.css';
+import initialCards from '../utils/initialCards.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
 const nameInput = document.querySelector('.popup__input_profile_name'); // инпут имя редактирование
@@ -98,10 +98,3 @@ validatorEdit.enableValidation();
 // валидация add
 const validatorAdd = new FormValidator(config, formAdd);
 validatorAdd.enableValidation();
-
-// import Popup from '../components/Popup.js';
-// const inputPlaceName = document.querySelector('.popup__input_place_name');
-// const inputPlaceLink = document.querySelector('.popup__input_place_url');
-// const caption = document.querySelector('.popup__figcaption');
-// const image = document.querySelector('.popup__image');
-// const elements = document.querySelector('.elements'); // секция с элементами
