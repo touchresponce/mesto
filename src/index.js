@@ -1,11 +1,11 @@
-import '../pages/index.css';
-import initialCards from '../utils/initialCards.js';
-import Card from '../components/Card.js';
-import FormValidator from '../components/FormValidator.js';
-import UserInfo from '../components/UserInfo.js';
-import Section from '../components/Section.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js';
+import './pages/index.css';
+import initialCards from './utils/initialCards.js';
+import Card from './components/Card.js';
+import FormValidator from './components/FormValidator.js';
+import UserInfo from './components/UserInfo.js';
+import Section from './components/Section.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
 
 const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
 const nameInput = document.querySelector('.popup__input_profile_name'); // инпут имя редактирование
