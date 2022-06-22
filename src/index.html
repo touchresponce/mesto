@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body>
@@ -47,7 +46,7 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <input class="popup__input popup__input_profile_name" type="text" name="name" id="userName-input" placeholder="Имя" minlength="2" maxlength="40" required autocomplete="off">
         <span class="popup__input-error userName-input-error"></span>
-        <input class="popup__input popup__input_profile_job" type="text" name="job" id="userJob-input" placeholder="Работа" minlength="2" maxlength="200" required autocomplete="off">
+        <input class="popup__input popup__input_profile_job" type="text" name="info" id="userJob-input" placeholder="Работа" minlength="2" maxlength="200" required autocomplete="off">
         <span class="popup__input-error userJob-input-error"></span>
         <button class="popup__submit popup__submit_disabled" type="submit" disabled>Сохранить</button>
       </form>
@@ -59,9 +58,9 @@
       <button class="popup__close"></button>
       <form class="form add-form" name="place-form">
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__input popup__input_place_name" type="text" name="place" id="placeName-input" placeholder="Название" minlength="2" maxlength="30" required autocomplete="off">
+        <input class="popup__input popup__input_place_name" type="text" name="name" id="placeName-input" placeholder="Название" minlength="2" maxlength="30" required autocomplete="on">
         <span class="popup__input-error placeName-input-error"></span>
-        <input class="popup__input popup__input_place_url" type="url" name="url" id="placeUrl-input" placeholder="Ссылка на картинку" required autocomplete="off">
+        <input class="popup__input popup__input_place_url" type="url" name="link" id="placeUrl-input" placeholder="Ссылка на картинку" required autocomplete="on">
         <span class="popup__input-error placeUrl-input-error"></span>
         <button class="popup__submit popup__submit_disabled" type="submit" disabled>Создать</button>
       </form>
@@ -87,6 +86,5 @@
     </article>
   </template>
 
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
