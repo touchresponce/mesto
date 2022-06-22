@@ -49,7 +49,7 @@ const createCard = (item) => {
 const mainCards = new Section(
   {
     items: initialCards,
-    renderer: (items) => mainCards.addItem(createCard(items)),
+    renderer: (items) => mainCards.addItem(createCard(items), 'append'),
   },
   '.elements',
 );
@@ -83,7 +83,7 @@ addBtn.addEventListener('click', handlePlaceAdd);
 const formCardAdd = new PopupWithForm(popupAdd, {
   callBack: () => {
     const newCard = createCard(formCardAdd._getInputValues());
-    mainCards.addItem(newCard);
+    mainCards.addItem(newCard, 'prepend');
   },
 });
 

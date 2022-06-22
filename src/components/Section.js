@@ -27,7 +27,15 @@ export default class Section {
     });
   }
 
-  addItem(item) {
-    this._container.append(item);
+  // addItem(item) {
+  //   this._container.append(item);
+  // }
+
+  addItem(item, method) {
+    if (method === 'append') {
+      this._container.append(item);
+    } else if (method === 'prepend') {
+      this._container.prepend(item);
+    } else return;
   }
 }
