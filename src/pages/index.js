@@ -2,34 +2,22 @@ import './index.css';
 import initialCards from '../utils/initialCards.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-
-const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
-const nameInput = document.querySelector('.popup__input_profile_name'); // инпут имя редактирование
-const jobInput = document.querySelector('.popup__input_profile_job'); // инпут работа редактирование
-const popupAdd = document.querySelector('.popup-add'); // модалка добавления
-const formEdit = document.querySelector('.edit-form'); // форма редактирования
-const formAdd = document.querySelector('.add-form'); // форма добавления
-const popupImage = document.querySelector('.popup-image');
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__job');
-const addBtn = document.querySelector('.profile__info-add'); // кнопка добавления
-const editBtn = document.querySelector('.profile__info-edit'); // кнопка редактирования
-
-const config = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active',
-};
-const userConfig = new UserInfo({
-  name: profileName,
-  info: profileJob,
-});
+import {
+  popupEdit,
+  nameInput,
+  jobInput,
+  popupAdd,
+  formEdit,
+  formAdd,
+  popupImage,
+  addBtn,
+  editBtn,
+  config,
+  userConfig,
+} from '../utils/constants.js';
 
 // открытие модалки с картинкой
 const handleCardClick = (name, link) => {
@@ -60,15 +48,16 @@ const handleProfileEdit = () => {
   validatorEdit.resetValidation();
   formProfileEdit.open();
 
-  nameInput.value = userConfig.getUserInfo().name;
-  jobInput.value = userConfig.getUserInfo().info;
+  const { name, info } = userConfig.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = info;
 };
 editBtn.addEventListener('click', handleProfileEdit);
 
 //
 const formProfileEdit = new PopupWithForm(popupEdit, {
-  callBack: () => {
-    userConfig.setUserInfo(formProfileEdit._getInputValues());
+  callBack: (inputsValues) => {
+    userConfig.setUserInfo(inputsValues);
   },
 });
 
@@ -81,8 +70,8 @@ addBtn.addEventListener('click', handlePlaceAdd);
 
 //
 const formCardAdd = new PopupWithForm(popupAdd, {
-  callBack: () => {
-    const newCard = createCard(formCardAdd._getInputValues());
+  callBack: (inputsValues) => {
+    const newCard = createCard(inputsValues);
     mainCards.addItem(newCard, 'prepend');
   },
 });
