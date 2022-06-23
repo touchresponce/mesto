@@ -19,11 +19,14 @@ import {
   userConfig,
 } from '../utils/constants.js';
 
+const popupWithImage = new PopupWithImage(popupImage);
+popupWithImage.setEventListeners();
+
 // открытие модалки с картинкой
 const handleCardClick = (name, link) => {
-  const popupWithImage = new PopupWithImage(popupImage);
+  // const popupWithImage = new PopupWithImage(popupImage);
   popupWithImage.open(name, link);
-  popupWithImage.setEventListeners();
+  // popupWithImage.setEventListeners();
 };
 
 // функция создания элемента
