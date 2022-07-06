@@ -6,7 +6,6 @@
  *   проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики;
  * - имеет публичный метод `enableValidation`, который включает валидацию формы.
  */
-
 export default class FormValidator {
   constructor(config, formElement) {
     this._inputSelector = config.inputSelector;

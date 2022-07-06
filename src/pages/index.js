@@ -1,54 +1,118 @@
 import './index.css';
-import initialCards from '../utils/initialCards.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
+import Api from '../components/Api.js';
 import {
   popupEdit,
   nameInput,
   jobInput,
   popupAdd,
-  formEdit,
-  formAdd,
   popupImage,
   addBtn,
   editBtn,
+  popupAvatar,
+  avatarBtn,
+  // avatar,
+  popupConfirm,
   config,
   userConfig,
 } from '../utils/constants.js';
 
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-45',
+  headers: {
+    authorization: '73461d7d-29b1-45f6-bf45-d662ef1bce52',
+  },
+});
+
 const popupWithImage = new PopupWithImage(popupImage);
 popupWithImage.setEventListeners();
 
-// открытие модалки с картинкой
-const handleCardClick = (name, link) => {
-  // const popupWithImage = new PopupWithImage(popupImage);
-  popupWithImage.open(name, link);
-  // popupWithImage.setEventListeners();
-};
-
-// функция создания элемента
+/**
+ * функция создания элемента
+ */
 const createCard = (item) => {
-  const card = new Card(item, '#element-template', handleCardClick);
+  const card = new Card(
+    item,
+    '#element-template',
+    {
+      handleCardClick: (name, link) => {
+        popupWithImage.open(name, link);
+      },
+      handleDeleteConfirm: (card) => {
+        popupWithConfirm.open(card);
+      },
+      handleLikeClick: (id) => {
+        api
+          .like(id)
+          .then((res) => card.likeCard(res))
+          .catch((err) => console.log(err));
+      },
+      handleDislikeClick: (id) => {
+        api
+          .dislike(id)
+          .then((res) => card.likeCard(res))
+          .catch((err) => console.log(err));
+      },
+    },
+    userId,
+  );
   const cardElement = card.createCard();
   return cardElement;
 };
 
-// отрисовка главного массива
+/**
+ * модалка с подтверждением удаления
+ */
+const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
+  // поведение при сабмите удаления
+  callBack: (card) => {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        card._delete();
+      })
+      .then(() => popupWithConfirm.close())
+      .catch((err) => console.log(err));
+  },
+});
+popupWithConfirm.setEventListeners();
+
+/**
+ * главный массив элементов
+ */
 const mainCards = new Section(
   {
-    items: initialCards,
-    renderer: (items) => mainCards.addItem(createCard(items), 'append'),
+    renderer: (items) => {
+      mainCards.addItem(createCard(items), 'append');
+    },
   },
   '.elements',
 );
-mainCards.renderItems();
 
-// редактирование профиля
+/**
+ * редактирование профиля
+ */
+const formProfileEdit = new PopupWithForm(popupEdit, {
+  callBack: (inputsValues) => {
+    api
+      .setUserInfo(inputsValues)
+      .then((data) =>
+        userConfig.setUserInfo({ name: data.name, info: data.about, avatar: data.avatar }),
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+});
+
+//
 const handleProfileEdit = () => {
-  validatorEdit.resetValidation();
+  formValidators['profile-form'].resetValidation();
   formProfileEdit.open();
 
   const { name, info } = userConfig.getUserInfo();
@@ -57,36 +121,88 @@ const handleProfileEdit = () => {
 };
 editBtn.addEventListener('click', handleProfileEdit);
 
-//
-const formProfileEdit = new PopupWithForm(popupEdit, {
+/**
+ * добавление элемента
+ */
+const formCardAdd = new PopupWithForm(popupAdd, {
   callBack: (inputsValues) => {
-    userConfig.setUserInfo(inputsValues);
+    api
+      .setCard(inputsValues)
+      .then((data) => {
+        const newCard = createCard(data);
+        mainCards.addItem(newCard, 'prepend');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
 
-// добавление элемента
+//
 const handlePlaceAdd = () => {
-  validatorAdd.resetValidation();
+  formValidators['place-form'].resetValidation();
   formCardAdd.open();
 };
 addBtn.addEventListener('click', handlePlaceAdd);
 
-//
-const formCardAdd = new PopupWithForm(popupAdd, {
+/**
+ * изменение аватарки
+ */
+const formAvatarChange = new PopupWithForm(popupAvatar, {
   callBack: (inputsValues) => {
-    const newCard = createCard(inputsValues);
-    mainCards.addItem(newCard, 'prepend');
+    api
+      .setAvatar(inputsValues.avatar)
+      .then((data) => userConfig.setUserInfo(data))
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
 
-// слушатели на формы
+//
+const handleAvaratChange = () => {
+  formValidators['avatar-form'].resetValidation();
+  formAvatarChange.open();
+};
+avatarBtn.addEventListener('click', handleAvaratChange);
+
+/**
+ * слушатели на формы
+ */
 formCardAdd.setEventListeners();
 formProfileEdit.setEventListeners();
+formAvatarChange.setEventListeners();
 
-// валидация edit
-const validatorEdit = new FormValidator(config, formEdit);
-validatorEdit.enableValidation();
+/**
+ * валидация
+ */
+const formValidators = {};
 
-// валидация add
-const validatorAdd = new FormValidator(config, formAdd);
-validatorAdd.enableValidation();
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formElement));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    // получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name');
+    // в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+enableValidation(config);
+
+//
+let userId;
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([user, cards]) => {
+    userId = user._id;
+    userConfig.setUserInfo({ name: user.name, info: user.about, avatar: user.avatar });
+    mainCards.renderItems(cards);
+  })
+  .catch((err) => console.log(err));
+
+// При редактировании профиля уведомите пользователя о процессе загрузки
+// Отображение количества лайков карточки
+// Постановка и снятие лайка
+
+// console.log(api.getCards());

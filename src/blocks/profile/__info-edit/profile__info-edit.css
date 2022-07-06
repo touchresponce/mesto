@@ -7,7 +7,7 @@
   background-color: transparent;
   background-size: contain;
   border: none;
-  transition: linear 0.6s;
+  transition: ease-in-out 0.5s;
   cursor: pointer;
 }
 

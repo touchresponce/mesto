@@ -1,21 +1,21 @@
-/**
- * Cоздаёт карточку с текстом и ссылкой на изображение
- * - принимает в конструктор её данные, селектор её template-элемента,
- *   функцию handleCardClick;
- * - содержит приватные методы, которые работают с разметкой,
- *   устанавливают слушателей событий;
- * - содержит приватные методы для каждого обработчика;
- * - содержит один публичный метод,
- *   который возвращает полностью работоспособный
- *   и наполненный данными элемент карточки.
- */
-
 export default class Card {
-  constructor(config, cardSelector, handleCardClick) {
-    this._name = config.name;
-    this._link = config.link;
+  constructor(
+    data,
+    cardSelector,
+    { handleCardClick, handleDeleteConfirm, handleLikeClick, handleDislikeClick },
+    userId,
+  ) {
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id; // айди карточки
+    this._ownerId = data.owner._id; // айди владельца
+    this._userId = userId; // айди пользователя
+    this._likes = data.likes; // ключ лайки
     this._cardSelector = cardSelector;
-    this._handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick; //открытие картинки
+    this._handleDeleteConfirm = handleDeleteConfirm; // открытие модалки подтверждения
+    this._handleLikeClick = handleLikeClick; // лайк
+    this._handleDislikeClick = handleDislikeClick; //дизлайк
   }
 
   _getTemplateEl() {
@@ -31,11 +31,40 @@ export default class Card {
   }
 
   _setLike() {
-    this._likeButton.classList.toggle('element__like-active');
+    // if (JSON.stringify(this._likes).includes(`${this._userId}`)) {
+    if (this._likeButton.classList.contains('element__like-active')) {
+      this._handleDislikeClick(this._id);
+    } else {
+      this._handleLikeClick(this._id);
+    }
+  }
+
+  likeCard(res) {
+    if (this._likeButton.classList.contains('element__like-active')) {
+      this._likeButton.classList.remove('element__like-active');
+      this._likeNum.textContent = res.likes.length;
+    } else {
+      this._likeButton.classList.add('element__like-active');
+      this._likeNum.textContent = res.likes.length;
+    }
+  }
+
+  // проверка на наличие лайка от юзера
+  _checkOwnLike() {
+    if (this._likes.find((likes) => this._userId === likes._id)) {
+      this._likeButton.classList.add('element__like-active');
+    }
+  }
+
+  // проверка на наличие прав удаления
+  _checkOwnDelete() {
+    if (!(this._ownerId === this._userId)) {
+      this._deleteButton.style.display = 'none';
+    }
   }
 
   _setEventListeners() {
-    this._deleteButton.addEventListener('click', () => this._delete());
+    this._deleteButton.addEventListener('click', () => this._handleDeleteConfirm(this));
     this._likeButton.addEventListener('click', () => this._setLike());
     this._image.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
@@ -46,12 +75,17 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
 
-    this._likeButton = this._card.querySelector('.element__like');
-    this._deleteButton = this._card.querySelector('.element__delete');
+    this._likeButton = this._card.querySelector('.element__like'); // кнопка лайка
+    this._deleteButton = this._card.querySelector('.element__delete'); // кнопка удаления
+    this._likeNum = this._card.querySelector('.element__like-num'); // колво лайков
 
+    this._likeNum.textContent = this._likes.length; // деф отрисовка колва лайков
     this._card.querySelector('.element__panel-text').textContent = this._name;
-    this._setEventListeners();
 
+    this._checkOwnLike();
+    this._checkOwnDelete();
+
+    this._setEventListeners();
     return this._card;
   }
 }

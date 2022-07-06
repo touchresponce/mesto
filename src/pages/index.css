@@ -7,7 +7,9 @@
 @import url(../blocks/header/__logo/header__logo.css);
 /* profile */
 @import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__wrapper/profile__wrapper.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__edit/profile__edit.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__container/profile__container.css);
 @import url(../blocks/profile/__name/profile__name.css);
@@ -21,6 +23,7 @@
 @import url(../blocks/element/__delete/element__delete.css);
 @import url(../blocks/element/__panel/element__panel.css);
 @import url(../blocks/element/__panel-text/element__panel-text.css);
+@import url(../blocks/element/__like-group/element__like-group.css);
 @import url(../blocks/element/__like/element__like.css);
 @import url(../blocks/element/__like-active/element__like-active.css);
 /* footer */
@@ -54,3 +57,7 @@
 @import url(../blocks/popup/__input/_type/popup__input_type_error.css);
 /* откл кнопка */
 @import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
+/* отступ кнопки модалки с подтверждением */
+@import url(../blocks/margin/margin.css);
+/* отступ инпута модалки с аватаром */
+@import url(../blocks/popup/__input/_type/popup__input_type_avatar.css);
