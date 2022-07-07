@@ -111,9 +111,7 @@ const formProfileEdit = new PopupWithForm(popupEdit, {
     formProfileEdit.setLoading(true);
     api
       .setUserInfo(inputsValues)
-      .then((data) =>
-        userConfig.setUserInfo({ name: data.name, info: data.about, avatar: data.avatar }),
-      )
+      .then((data) => userConfig.setUserInfo(data))
       .then(() => formProfileEdit.close())
       .catch((err) => {
         console.log(err);
@@ -170,9 +168,7 @@ const formAvatarChange = new PopupWithForm(popupAvatar, {
     formAvatarChange.setLoading(true);
     api
       .setAvatar(inputsValues.avatar)
-      .then((data) =>
-        userConfig.setUserInfo({ name: data.name, info: data.about, avatar: data.avatar }),
-      )
+      .then((data) => userConfig.setUserInfo(data))
       .then(() => formAvatarChange.close())
       .catch((err) => {
         console.log(err);
@@ -220,7 +216,7 @@ let userId;
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([user, cards]) => {
     userId = user._id;
-    userConfig.setUserInfo({ name: user.name, info: user.about, avatar: user.avatar });
+    userConfig.setUserInfo(user);
     mainCards.renderItems(cards);
   })
   .catch((err) => console.log(err));
