@@ -22,11 +22,6 @@ export default class UserInfo {
     };
   }
 
-  // setUserInfo(data) {
-  //   this._name.textContent = data.name;
-  //   this._info.textContent = data.info;
-  //   this._avatar.src = data.avatar;
-  // }
   setUserInfo({ name, about, avatar, _id }) {
     this._name.textContent = name;
     this._info.textContent = about;
