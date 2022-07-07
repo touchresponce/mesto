@@ -99,6 +99,7 @@ const mainCards = new Section(
  */
 const formProfileEdit = new PopupWithForm(popupEdit, {
   callBack: (inputsValues) => {
+    formProfileEdit.setLoading(true);
     api
       .setUserInfo(inputsValues)
       .then((data) =>
@@ -106,7 +107,8 @@ const formProfileEdit = new PopupWithForm(popupEdit, {
       )
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => formProfileEdit.setLoading(false));
   },
 });
 
@@ -126,6 +128,7 @@ editBtn.addEventListener('click', handleProfileEdit);
  */
 const formCardAdd = new PopupWithForm(popupAdd, {
   callBack: (inputsValues) => {
+    formCardAdd.setLoading(true);
     api
       .setCard(inputsValues)
       .then((data) => {
@@ -134,6 +137,9 @@ const formCardAdd = new PopupWithForm(popupAdd, {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        formCardAdd.setLoading(false);
       });
   },
 });
@@ -150,11 +156,17 @@ addBtn.addEventListener('click', handlePlaceAdd);
  */
 const formAvatarChange = new PopupWithForm(popupAvatar, {
   callBack: (inputsValues) => {
+    formAvatarChange.setLoading(true);
     api
       .setAvatar(inputsValues.avatar)
-      .then((data) => userConfig.setUserInfo(data))
+      .then((data) =>
+        userConfig.setUserInfo({ name: data.name, info: data.about, avatar: data.avatar }),
+      )
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        formAvatarChange.setLoading(false);
       });
   },
 });
@@ -200,9 +212,3 @@ Promise.all([api.getUserInfo(), api.getCards()])
     mainCards.renderItems(cards);
   })
   .catch((err) => console.log(err));
-
-// При редактировании профиля уведомите пользователя о процессе загрузки
-// Отображение количества лайков карточки
-// Постановка и снятие лайка
-
-// console.log(api.getCards());
