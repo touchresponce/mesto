@@ -3,12 +3,6 @@ export default class Api {
     this._config = config;
   }
 
-  // getLikes(cardId) {
-  //   return fetch(`${this._config.url}/cards/likes/${cardId}`, {
-  //     headers: this._config.headers,
-  //   }).then(this._getResponce);
-  // }
-
   // возвращающий юзера из апи
   getUserInfo() {
     return fetch(`${this._config.url}/users/me`, {

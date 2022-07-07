@@ -16,7 +16,6 @@ import {
   editBtn,
   popupAvatar,
   avatarBtn,
-  // avatar,
   popupConfirm,
   config,
   userConfig,
