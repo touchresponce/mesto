@@ -5,19 +5,16 @@ export default class Api {
 
   // возвращающий юзера из апи
   getUserInfo() {
-    return fetch(`${this._config.url}/users/me`, {
+    return fetch(`${this._config.baseUrl}/users/me`, {
       headers: this._config.headers,
     }).then(this._getResponce);
   }
 
   // изменение юзера
   setUserInfo(data) {
-    return fetch(`${this._config.url}/users/me`, {
+    return fetch(`${this._config.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._config.headers.authorization,
-        'Content-Type': 'application/json',
-      },
+      headers: this._config.headers,
       body: JSON.stringify({
         name: data.name,
         about: data.info,
@@ -27,19 +24,16 @@ export default class Api {
 
   // получение карточки
   getCards() {
-    return fetch(`${this._config.url}/cards`, {
+    return fetch(`${this._config.baseUrl}/cards`, {
       headers: this._config.headers,
     }).then(this._getResponce);
   }
 
   // отправка карточки
   setCard(data) {
-    return fetch(`${this._config.url}/cards`, {
+    return fetch(`${this._config.baseUrl}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: this._config.headers.authorization,
-        'Content-Type': 'application/json',
-      },
+      headers: this._config.headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -49,7 +43,7 @@ export default class Api {
 
   // удаление карточки
   deleteCard(_id) {
-    return fetch(`${this._config.url}/cards/${_id}`, {
+    return fetch(`${this._config.baseUrl}/cards/${_id}`, {
       method: 'DELETE',
       headers: this._config.headers,
     }).then(this._getResponce);
@@ -57,18 +51,15 @@ export default class Api {
 
   // добавить лайк
   like(cardId) {
-    return fetch(`${this._config.url}/cards/likes/${cardId}`, {
+    return fetch(`${this._config.baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
-      headers: {
-        authorization: this._config.headers.authorization,
-        'Content-Type': 'application/json',
-      },
+      headers: this._config.headers,
     }).then(this._getResponce);
   }
 
   // удалить лайк
   dislike(cardId) {
-    return fetch(`${this._config.url}/cards/likes/${cardId}`, {
+    return fetch(`${this._config.baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this._config.headers,
     }).then(this._getResponce);
@@ -76,12 +67,9 @@ export default class Api {
 
   // изменение аватарки
   setAvatar(link) {
-    return fetch(`${this._config.url}/users/me/avatar`, {
+    return fetch(`${this._config.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._config.headers.authorization,
-        'Content-Type': 'application/json',
-      },
+      headers: this._config.headers,
       body: JSON.stringify({ avatar: link }),
     }).then(this._getResponce);
   }

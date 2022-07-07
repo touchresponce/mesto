@@ -1,5 +1,3 @@
-import UserInfo from '../components/UserInfo.js';
-
 export const popupEdit = document.querySelector('.popup-edit'); // модалка редактирования
 export const nameInput = document.querySelector('.popup__input_profile_name'); // инпут имя редактирование
 export const jobInput = document.querySelector('.popup__input_profile_job'); // инпут работа редактирование
@@ -22,9 +20,3 @@ export const config = {
   errorClass: 'popup__input-error_active',
   formElement: '.form',
 };
-
-export const userConfig = new UserInfo({
-  name: profileName,
-  info: profileJob,
-  avatar: avatar,
-});

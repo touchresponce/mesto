@@ -1,4 +1,5 @@
 import './index.css';
+import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -12,19 +13,28 @@ import {
   jobInput,
   popupAdd,
   popupImage,
+  profileName,
+  profileJob,
   addBtn,
   editBtn,
   popupAvatar,
   avatarBtn,
+  avatar,
   popupConfirm,
   config,
-  userConfig,
 } from '../utils/constants.js';
 
+const userConfig = new UserInfo({
+  name: profileName,
+  info: profileJob,
+  avatar: avatar,
+});
+
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-45',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-45',
   headers: {
     authorization: '73461d7d-29b1-45f6-bf45-d662ef1bce52',
+    'Content-Type': 'application/json',
   },
 });
 
@@ -73,7 +83,7 @@ const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
     api
       .deleteCard(card._id)
       .then(() => {
-        card._delete();
+        card.delete();
       })
       .then(() => popupWithConfirm.close())
       .catch((err) => console.log(err));
@@ -104,6 +114,7 @@ const formProfileEdit = new PopupWithForm(popupEdit, {
       .then((data) =>
         userConfig.setUserInfo({ name: data.name, info: data.about, avatar: data.avatar }),
       )
+      .then(() => formProfileEdit.close())
       .catch((err) => {
         console.log(err);
       })
@@ -134,6 +145,7 @@ const formCardAdd = new PopupWithForm(popupAdd, {
         const newCard = createCard(data);
         mainCards.addItem(newCard, 'prepend');
       })
+      .then(() => formCardAdd.close())
       .catch((err) => {
         console.log(err);
       })
@@ -161,6 +173,7 @@ const formAvatarChange = new PopupWithForm(popupAvatar, {
       .then((data) =>
         userConfig.setUserInfo({ name: data.name, info: data.about, avatar: data.avatar }),
       )
+      .then(() => formAvatarChange.close())
       .catch((err) => {
         console.log(err);
       })

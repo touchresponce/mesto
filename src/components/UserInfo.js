@@ -22,9 +22,15 @@ export default class UserInfo {
     };
   }
 
+  // setUserInfo(data) {
+  //   this._name.textContent = data.name;
+  //   this._info.textContent = data.info;
+  //   this._avatar.src = data.avatar;
+  // }
   setUserInfo(data) {
     this._name.textContent = data.name;
     this._info.textContent = data.info;
     this._avatar.src = data.avatar;
+    this._id = data._id;
   }
 }

@@ -26,12 +26,11 @@ export default class Card {
     return this._card;
   }
 
-  _delete() {
+  delete() {
     this._card.remove();
   }
 
   _setLike() {
-    // if (JSON.stringify(this._likes).includes(`${this._userId}`)) {
     if (this._likeButton.classList.contains('element__like-active')) {
       this._handleDislikeClick(this._id);
     } else {
