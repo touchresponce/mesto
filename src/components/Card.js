@@ -31,11 +31,9 @@ export default class Card {
   }
 
   _setLike() {
-    if (this._likeButton.classList.contains('element__like-active')) {
-      this._handleDislikeClick(this._id);
-    } else {
-      this._handleLikeClick(this._id);
-    }
+    this._likeButton.classList.contains('element__like-active')
+      ? this._handleDislikeClick(this._id)
+      : this._handleLikeClick(this._id);
   }
 
   likeCard(res) {
