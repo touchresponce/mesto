@@ -75,6 +75,18 @@ const createCard = (item) => {
 };
 
 /**
+ * главный массив элементов
+ */
+const mainCards = new Section(
+  {
+    renderer: (items) => {
+      mainCards.addItem(createCard(items), 'append');
+    },
+  },
+  '.elements',
+);
+
+/**
  * модалка с подтверждением удаления
  */
 const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
@@ -90,18 +102,6 @@ const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
   },
 });
 popupWithConfirm.setEventListeners();
-
-/**
- * главный массив элементов
- */
-const mainCards = new Section(
-  {
-    renderer: (items) => {
-      mainCards.addItem(createCard(items), 'append');
-    },
-  },
-  '.elements',
-);
 
 /**
  * редактирование профиля

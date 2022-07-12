@@ -56,7 +56,7 @@ export default class Card {
   // проверка на наличие прав удаления
   _checkOwnDelete() {
     if (!(this._ownerId === this._userId)) {
-      this._deleteButton.style.display = 'none';
+      this._deleteButton.remove();
     }
   }
 
